@@ -49,15 +49,14 @@ if ($method === 'OPTIONS') {
     }
   }
 
-
-  if (
-    !isset($data->quote) ||
-    !isset($data->author_id) ||
-    !isset($data->category_id)
-  ) {
-    echo json_encode(['message' => 'Missing Required Parameters']);
-    exit();
-  }
+  #if(
+  #  !isset($data->quote) ||
+  #  !isset($data->author_id) ||
+  #  !isset($data->category_id)
+  #) {
+  #  echo json_encode(['message' => 'Missing Required Parameters']);
+  #  exit();
+  #}
 
 
   $quote->quotes = $data->quote;
