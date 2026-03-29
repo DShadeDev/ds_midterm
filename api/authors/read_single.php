@@ -34,7 +34,7 @@ if ($method === 'OPTIONS') {
   }
   $author_arr = [
     'id' => $author->id,
-    'category' => $author->author
+    'author' => $author->author
   ];
   http_response_code(200);
   echo json_encode($author_arr);

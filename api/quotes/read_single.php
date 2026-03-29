@@ -29,7 +29,7 @@ if ($method === 'OPTIONS') {
   $quote->id = $_GET['id'];
   if(!$quote->read_single()) {
     http_response_code(404);
-    echo json_encode(['message' => 'No Quote Found']);
+    echo json_encode(['message' => 'No Quotes Found']);
     exit();
   }
   $quote_arr = [
