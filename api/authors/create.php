@@ -21,7 +21,7 @@ if ($method === 'OPTIONS') {
 
   $author = new Author($db);
 
-  $data = json_decode(file_get_contents("php://input"), true);
+  $data = json_decode(file_get_contents("php://input"));
 
   if(!isset($data->author)) {
     echo json_encode(['message' => 'Missing Required Parameters']);
