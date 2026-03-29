@@ -27,37 +27,37 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"), true);
 
-  #if (!$data || count($data) === 0) {
-  #  $data = $_POST;
-  #}
+  if (!$data || count($data) === 0) {
+    $data = $_POST;
+  }
 
-  #if(isset($data->author_id)) {
-  #  $author->id = $data->author_id;
-  #  if(!$author->read_single()) {
-  #    http_response_code(404);
-  #    echo json_encode(['message' => 'author_id Not Found']);
-  #    exit();
-  #  }
-  #}
+  if(isset($data->author_id)) {
+    $author->id = $data->author_id;
+    if(!$author->read_single()) {
+      http_response_code(404);
+      echo json_encode(['message' => 'author_id Not Found']);
+      exit();
+    }
+  }
 
-  #if(isset($data->category_id)) {
-  #  $category->id = $data->category_id;
-  #  if(!$category->read_single()) {
-  #    http_response_code(404);
-  #    echo json_encode(['message' => 'category_id Not Found']);
-  #    exit();
-  #  }
-  #}
+  if(isset($data->category_id)) {
+    $category->id = $data->category_id;
+    if(!$category->read_single()) {
+      http_response_code(404);
+      echo json_encode(['message' => 'category_id Not Found']);
+      exit();
+    }
+  }
 
 
-  #if (
-  #  !isset($data->quote) ||
-  #  !isset($data->author_id) ||
-  #  !isset($data->category_id)
-  #) {
-  #  echo json_encode(['message' => 'Missing Required Parameters']);
-  #  exit();
-  #}
+  if (
+    !isset($data->quote) ||
+    !isset($data->author_id) ||
+    !isset($data->category_id)
+  ) {
+    echo json_encode(['message' => 'Missing Required Parameters']);
+    exit();
+  }
 
 
   $quote->quotes = $data->quote;
@@ -65,12 +65,12 @@ if ($method === 'OPTIONS') {
   $quote->category_id = $data->category_id;
 
   if ($quote->create()) {
-    echo json_encode([
+    echo json_encode(array(
         'id' => $quote->id,
         'quote' => $quote->quotes,
         'author_id' => $quote->author_id,
         'category_id' => $quote->category_id
-    ]);
+    ));
   } else {
     http_response_code(500);
     echo json_encode(['message' => 'Quote Not Created']);
