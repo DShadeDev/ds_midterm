@@ -28,7 +28,7 @@
                     . $this->table . 
                     ' WHERE 
                     id = ? 
-                    LIMIT 0,1';
+                    LIMIT 1 OFFSET 0';
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(1, $this->id);
@@ -58,8 +58,8 @@
 
             $query = 'INSERT INTO '
                     . $this->table . 
-                    ' SET 
-                    author=:author';
+                    ' (author) 
+                    VALUES (:author)';
 
             $stmt = $this->conn->prepare($query);
             $this->author = htmlspecialchars(strip_tags($this->author));

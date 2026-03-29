@@ -66,7 +66,8 @@ class Quote {
 
     public function create() {
      $query = 'INSERT INTO ' . $this->table . '
-              SET quotes = :quotes, author_id = :author_id, category_id = :category_id';
+              (quotes, author_id, category_id)
+              VALUES (:quotes, :author_id, :category_id)';
 
     $stmt = $this->conn->prepare($query);
 

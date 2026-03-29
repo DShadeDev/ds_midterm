@@ -28,7 +28,7 @@
                     . $this->table . 
                     ' WHERE 
                     id = ? 
-                    LIMIT 0,1';
+                    LIMIT 1 OFFSET 0';
 
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(1, $this->id);
@@ -56,8 +56,8 @@
 
             $query = 'INSERT INTO '
                     . $this->table . 
-                    ' SET 
-                    category=:category';
+                    ' (category) 
+                    VALUES (:category)';
 
             $stmt = $this->conn->prepare($query);
             $this->category = htmlspecialchars(strip_tags($this->category));
