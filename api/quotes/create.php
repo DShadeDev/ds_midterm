@@ -42,21 +42,6 @@ if ($method === 'OPTIONS') {
   $quote->author_id = $data->author_id;
   $quote->category_id = $data->category_id;
 
-
-  $author->id = $data->author_id;
-  if (!$author->read_single()) {
-    echo json_encode(['message' => 'author_id Not Found']);
-    exit();
-  }
-
-
-  $category->id = $data->category_id;
-  if (!$category->read_single()) {
-    echo json_encode(['message' => 'category_id Not Found']);
-    exit();
-  }
-
-
   if ($quote->create()) {
     echo json_encode([
         'id' => $quote->id,
