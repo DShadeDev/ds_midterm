@@ -20,7 +20,7 @@
             return $this->conn;
           } else {
 
-            $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->dbname};";
+            $dsn = "pgsql:host={$this->host};port={$this->port};dbname={$this->dbname};sslmode=require";
 
             try{
               $this->conn = new PDO($dsn, $this->username, $this->password);
