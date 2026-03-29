@@ -8,11 +8,11 @@
         private $conn;
 
         public function __construct() {
-          $this->username = getenv('USERNAME');
-          $this->password = getenv('PASSWORD');
-          $this->dbname = getenv('DBNAME');
-          $this->host = getenv('HOST');
-          $this->port = getenv('PORT');
+          $this->username = getenv('DB_USERNAME');
+          $this->password = getenv('DB_PASSWORD');
+          $this->dbname = getenv('DB_NAME');
+          $this->host = getenv('DB_HOST');
+          $this->port = getenv('DB_PORT');
         }
 
         public function connect() {
