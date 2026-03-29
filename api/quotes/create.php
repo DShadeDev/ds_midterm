@@ -27,7 +27,7 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"), true);
 
-  if (!$data) {
+  if (!$data || count($data) === 0) {
     $data = $_POST;
   }
 
