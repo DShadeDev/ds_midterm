@@ -28,6 +28,7 @@ if ($method === 'OPTIONS') {
 
   $author->id = $_GET['id'];
   if(!$author->read_single()) {
+    http_response_code(404);
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
   }
