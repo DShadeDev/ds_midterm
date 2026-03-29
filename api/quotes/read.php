@@ -28,8 +28,6 @@ if ($method === 'OPTIONS') {
 
   $quotes = $result->fetchAll(PDO::FETCH_ASSOC);
 
-  if ($quotes) {
-
     $data = [];
 
     foreach ($quotes as $row) {
@@ -44,6 +42,3 @@ if ($method === 'OPTIONS') {
     http_response_code(200);
     echo json_encode($data);
 
-} else {
-    echo json_encode(array('message' => 'No Quotes Found'));
-}
