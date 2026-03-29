@@ -46,7 +46,7 @@ class Quote {
                 LEFT JOIN categories ON quotes.category_id = categories.id 
                 LEFT JOIN authors ON quotes.author_id = authors.id
                 WHERE quotes.id = ?
-                LIMIT 0,1';
+                LIMIT 1 OFFSET 0';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $this->id);
         $stmt->execute();
