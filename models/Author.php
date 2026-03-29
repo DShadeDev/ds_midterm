@@ -59,13 +59,14 @@
             $query = 'INSERT INTO '
                     . $this->table . 
                     ' (author) 
-                    VALUES (:author)';
+                    VALUES (:author) 
+                    RETURNING id';
 
             $stmt = $this->conn->prepare($query);
             $this->author = htmlspecialchars(strip_tags($this->author));
             $stmt->bindParam(':author', $this->author);
             if($stmt->execute()) {
-                return $this->conn->lastInsertId();
+                return $stmt->fetchColumn;
             }
             return false;
         }
