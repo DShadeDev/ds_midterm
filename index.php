@@ -1,3 +1,3 @@
 <?php
-echo "INF 653 Quotes Midterm";
+echo "INF 653 Quotes Midterm ";
 ?>
