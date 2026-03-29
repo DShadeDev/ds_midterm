@@ -37,6 +37,19 @@ if ($method === 'OPTIONS') {
     exit();
   }
 
+  $author->id = $data->author_id;
+  if(!$author->read_single()) {
+    http_response_code(404);
+    echo json_encode(['message' => 'author_id Not Found']);
+    exit();
+  }
+
+  $category->id = $data->category_id;
+  if(!$category->read_single()) {
+    http_response_code(404);
+    echo json_encode(['message' => 'category_id Not Found']);
+    exit();
+  }
 
   $quote->quotes = $data->quote;
   $quote->author_id = $data->author_id;
