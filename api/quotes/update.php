@@ -25,12 +25,12 @@ if ($method === 'OPTIONS') {
   $author = new Author($db);
   $category = new Category($db);
 
-  $data = json_decode(file_get_contents("php://input"));
+  $data = json_decode(file_get_contents("php://input"), true);
 
   if(
     !isset($data->id) || !isset($data->quotes) || !isset($data->author_id) || !isset($data->category_id)
   ) {
-    http_response_code(400);
+  
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
   }
