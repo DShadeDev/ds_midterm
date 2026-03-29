@@ -24,7 +24,6 @@ if ($method === 'OPTIONS') {
   $data = json_decode(file_get_contents("php://input"));
 
   if(!isset($data->category)) {
-    http_response_code(400);
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
   }
@@ -33,7 +32,6 @@ if ($method === 'OPTIONS') {
   $result = $category->create();
   
   if ($result) {
-    http_response_code(201);
     echo json_encode([
         'id' => $result,   
         'category' => $category->category
