@@ -66,14 +66,14 @@ class Quote {
 
     public function create() {
      $query = 'INSERT INTO ' . $this->table . '
-              (quotes, author_id, category_id)
-              VALUES (:quotes, :author_id, :category_id)';
+              (quote, author_id, category_id)
+              VALUES (:quote, :author_id, :category_id)';
 
     $stmt = $this->conn->prepare($query);
 
     $this->quotes = htmlspecialchars(strip_tags($this->quotes));
 
-    $stmt->bindParam(':quotes', $this->quotes);
+    $stmt->bindParam(':quote', $this->quote);
     $stmt->bindParam(':author_id', $this->author_id);
     $stmt->bindParam(':category_id', $this->category_id);
 
