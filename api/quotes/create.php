@@ -60,7 +60,6 @@ if ($method === 'OPTIONS') {
 
 
   if ($quote->create()) {
-    http_response_code(201);
     echo json_encode([
         'id' => $quote->id,
         'quote' => $quote->quotes,
