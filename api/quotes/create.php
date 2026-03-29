@@ -33,7 +33,6 @@ if ($method === 'OPTIONS') {
     !isset($data->author_id) ||
     !isset($data->category_id)
   ) {
-    http_response_code(400);
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
   }
