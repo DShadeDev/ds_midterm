@@ -28,7 +28,7 @@ if ($method === 'OPTIONS') {
 
   $quote->id = $_GET['id'];
   if(!$quote->read_single()) {
-    echo json_encode(['message' => 'No Quotes Found']);
+    echo json_encode(array('message' => 'No Quotes Found'));
     exit();
   }
   $quote_arr = [

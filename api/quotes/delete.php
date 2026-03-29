@@ -31,8 +31,7 @@ if ($method === 'OPTIONS') {
 
   $quote->id = $data->id;
   if(!$quote->read_single()) {
-    http_response_code(404);
-    echo json_encode(['message' => 'No Quotes Found']);
+    echo json_encode(array('message' => 'No Quotes Found'));
     exit();
   }
   if($quote->delete()) {
