@@ -27,6 +27,10 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"), true);
 
+  if (!$data) {
+    $data = $_POST;
+  }
+
 
   if (
     !isset($data->quote) ||
@@ -38,7 +42,7 @@ if ($method === 'OPTIONS') {
   }
 
   $author->id = $data->author_id;
-  if(!$author) {
+  if(!$author->read_single()) {
     http_response_code(404);
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
