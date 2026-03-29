@@ -45,7 +45,6 @@ if ($method === 'OPTIONS') {
 
   $author->id = $data->author_id;
   if (!$author->read_single()) {
-    http_response_code(404);
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
   }
@@ -53,7 +52,6 @@ if ($method === 'OPTIONS') {
 
   $category->id = $data->category_id;
   if (!$category->read_single()) {
-    http_response_code(404);
     echo json_encode(['message' => 'category_id Not Found']);
     exit();
   }
