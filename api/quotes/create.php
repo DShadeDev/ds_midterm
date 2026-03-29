@@ -31,6 +31,15 @@ if ($method === 'OPTIONS') {
     $data = $_POST;
   }
 
+  if(isset($data->author_id)) {
+    $author->id = $data->author_id;
+    if(!$author->read_single()) {
+      http_response_code(404);
+      echo json_encode(['message' => 'author_id Not Found']);
+      exit();
+    }
+  }
+
 
   if (
     !isset($data->quote) ||
