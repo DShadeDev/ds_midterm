@@ -33,6 +33,7 @@ if ($method === 'OPTIONS') {
   $quote->category_id = $data->category_id;
 
   if($quote->create()) {
+    http_response_code(200);
     echo json_encode(array(
       'id' => $quote->id;
       'quote' => $quote->quote;
