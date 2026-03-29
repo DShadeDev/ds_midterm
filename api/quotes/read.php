@@ -45,6 +45,5 @@ if ($method === 'OPTIONS') {
     echo json_encode($data);
 
 } else {
-    http_response_code(404);
     echo json_encode(['message' => 'No Quotes Found']);
 }

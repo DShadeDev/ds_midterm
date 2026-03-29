@@ -28,7 +28,6 @@ if ($method === 'OPTIONS') {
 
   $category->id = $_GET['id'];
   if(!$category->read_single()) {
-    http_response_code(404);
     echo json_encode(['message' => 'category_id Not Found']);
     exit();
   }
