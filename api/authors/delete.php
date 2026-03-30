@@ -23,19 +23,20 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"));
 
-  #if(!isset($data->id)) {
-  #  http_response_code(400);
-  #  echo json_encode(['message'=> 'Missing Required Parameters']);
-  #  exit();
-  #}
-
   $author->id = $data->id;
-  if($author->delete()) {
-    #http_response_code(200);
+  $result = $author->delete();
+
+  if ($result === true) {
     echo json_encode([
       'id' => $author->id
     ]);
+  } elseif ($result === 'constraint') {
+    echo json_encode([
+      'message' => "Cannot delete author in use"
+    ]);
   } else {
     http_response_code(500);
-    echo json_encode(['message' => 'Author Not Deleted']);
-  };
+    echo json_encode([
+      'message' => 'Author Not Deleted'
+    ]);
+  }

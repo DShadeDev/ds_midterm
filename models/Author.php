@@ -45,22 +45,21 @@
         }
 
         public function create() {
-            $query = 'SELECT id FROM ' . $this->table . ' WHERE author = :author LIMIT 1';
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':author', $this->author);
-            $stmt->execute();
+               $query = 'SELECT id FROM ' . $this->table . ' WHERE author = :author LIMIT 1';
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':author', $this->author);
+                $stmt->execute();
 
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($row) {
-                return $row['id'];
-            }
+                if ($row) {
+                    return $row['id'];
+                }
 
             $query = 'INSERT INTO '
                     . $this->table . 
                     ' (author) 
-                    VALUES (:author) 
-                    RETURNING id';
+                    VALUES (:author) RETURNING id';
 
             $stmt = $this->conn->prepare($query);
             $this->author = htmlspecialchars(strip_tags($this->author));
@@ -89,17 +88,22 @@
         }
 
         public function delete() {
-            $query = 'DELETE FROM '
-                    .$this->table . 
-                    ' WHERE id = :id';
+            try{
+                $query = 'DELETE FROM '
+                        .$this->table . 
+                        ' WHERE id = :id';
 
-            $stmt = $this->conn->prepare($query);
-            $this->id = htmlspecialchars(strip_tags($this->id));
-            $stmt->bindParam(':id', $this->id);
+                $stmt = $this->conn->prepare($query);
+                $this->id = htmlspecialchars(strip_tags($this->id));
+                $stmt->bindParam(':id', $this->id);
+                $stmt->execute();
 
-             if ($stmt->execute()) {
-                return true;
-            }
+                return $stmt->rowCount() > 0;
+            } catch (PDOException $e) {
+                if ($e->getCode() == 23000) {
+                    return 'constraint':
+                }
+            
             return false;
         }
     }
