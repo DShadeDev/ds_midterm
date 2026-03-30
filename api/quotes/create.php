@@ -27,19 +27,51 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"), true);
 
-  $quote->id = $data->id;
-  $quote->quote = $data->quote;
-  $quote->author_id = $data->author_id;
-  $quote->category_id = $data->category_id;
+  if (
+  !isset($data->quotes) || empty(trim($data->quotes)) ||
+  !isset($data->author_id) ||
+  !isset($data->category_id)
+) {
+  http_response_code(400);
+  echo json_encode(['message' => 'Missing Required Parameters']);
+  exit();
+}
 
-  if($quote->create()) {
-    http_response_code(200);
-    echo json_encode(array(
-      'id' => $quote->id;
-      'quote' => $quote->quote;
-      'author_id' => $quote->author_id;
-      'category_id' => $category_id;
-    ));
-  } else {
-    echo json_encode(array('message' => 'Not Created'));
-  }
+if (!is_numeric($data->author_id) || !is_numeric($data->category_id)) {
+  http_response_code(400);
+  echo json_encode(['message' => 'Missing Required Parameters']);
+  exit();
+}
+
+$quote->quotes = $data->quotes;
+$quote->author_id = $data->author_id;
+$quote->category_id = $data->category_id;
+
+$author->id = $data->author_id;
+if (!$author->read_single()) {
+  http_response_code(404);
+  echo json_encode(['message' => 'author_id Not Found']);
+  exit();
+}
+
+
+$category->id = $data->category_id;
+if (!$category->read_single()) {
+  http_response_code(404);
+  echo json_encode(['message' => 'category_id Not Found']);
+  exit();
+}
+
+
+if ($quote->create()) {
+  http_response_code(201);
+  echo json_encode([
+    'id' => $quote->id,
+    'quote' => $quote->quotes,
+    'author_id' => $quote->author_id,
+    'category_id' => $quote->category_id
+  ]);
+} else {
+  http_response_code(500);
+  echo json_encode(['message' => 'Quote Not Created']);
+}
