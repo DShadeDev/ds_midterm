@@ -51,7 +51,7 @@
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($row) {
-                return $row['id']; // ✅ Exists
+                return $row['id']; 
             }
 
             $query = 'INSERT INTO '

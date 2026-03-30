@@ -15,7 +15,7 @@ class Quote {
     }
 
     public function read($author_id = null, $category_id = null) {
-        $query = 'SELECT quotes.id, quotes.quotes, categories.category, authors.author
+        $query = 'SELECT quotes.id, quotes.quote, categories.category, authors.author
                 FROM ' . $this->table . ' 
                 LEFT JOIN categories ON quotes.category_id = categories.id 
                 LEFT JOIN authors ON quotes.author_id = authors.id';
@@ -71,7 +71,7 @@ class Quote {
 
     $stmt = $this->conn->prepare($query);
 
-    $this->quotes = htmlspecialchars(strip_tags($this->quote));
+    $this->quote = htmlspecialchars(strip_tags($this->quote));
 
     $stmt->bindParam(':quote', $this->quote);
     $stmt->bindParam(':author_id', $this->author_id);
