@@ -78,17 +78,22 @@
         }
 
         public function delete() {
-            $query = 'DELETE FROM '
-                    .$this->table . 
-                    ' WHERE id = :id';
+            try{
+                $query = 'DELETE FROM '
+                        .$this->table . 
+                        ' WHERE id = :id';
 
-            $stmt = $this->conn->prepare($query);
-            $this->id = htmlspecialchars(strip_tags($this->id));
-            $stmt->bindParam(':id', $this->id);
+                $stmt = $this->conn->prepare($query);
+                $this->id = htmlspecialchars(strip_tags($this->id));
+                $stmt->bindParam(':id', $this->id);
+                $stmt->execute();
 
-             if ($stmt->execute()) {
-                return true;
-            }
+                return $stmt->rowCount() > 0;
+            } catch (PDOException $e) {
+                if ($e->getCode() == 23000) {
+                    return 'constraint':
+                }
+            
             return false;
         }
     }
