@@ -23,7 +23,7 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"));
 
-  if(!isset($data->id) || !isset($data->category)) {
+  if(!isset($data->category)) {
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
   }
