@@ -23,15 +23,15 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"));
 
-  if(!isset($data->id)) {
-    http_response_code(400);
-    echo json_encode(['message'=> 'Missing Required Parameters']);
-    exit();
-  }
+  #if(!isset($data->id)) {
+  #  http_response_code(400);
+  #  echo json_encode(['message'=> 'Missing Required Parameters']);
+  #  exit();
+  #}
 
   $author->id = $data->id;
   if($author->delete()) {
-    http_response_code(200);
+    #http_response_code(200);
     echo json_encode([
       'id' => $author->id
     ]);
