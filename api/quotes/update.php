@@ -26,16 +26,20 @@ if ($method === 'OPTIONS') {
   $category = new Category($db);
 
   $data = json_decode(file_get_contents("php://input"), true);
+  if (!$data) {
+    echo json_encode(['message' => 'Invalid JSON']);
+    exit();
+  }
 
   if(
-    !isset($data->id) || !isset($data->quotes) || !isset($data->author_id) || !isset($data->category_id)
+    !isset($data['id']) || !isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id']
   ) {
   
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
   }
 
-  $quote->id = $data->id;
+  $quote->id = $data['id'];
 
   if(!$quote->read_single()) {
     http_response_code(404);
