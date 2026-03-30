@@ -4,7 +4,7 @@ class Quote {
     private $table = 'quotes';
 
     public $id;
-    public $quotes;
+    public $quote;
     public $author;
     public $category;
     public $author_id;
@@ -41,7 +41,7 @@ class Quote {
     }
 
     public function read_single() {
-        $query = 'SELECT quotes.id, quotes.quotes, quotes.category_id, quotes.author_id, categories.category, authors.author 
+        $query = 'SELECT quotes.id, quotes.quote, quotes.category_id, quotes.author_id, categories.category, authors.author 
                 FROM ' . $this->table . ' 
                 LEFT JOIN categories ON quotes.category_id = categories.id 
                 LEFT JOIN authors ON quotes.author_id = authors.id
@@ -53,7 +53,7 @@ class Quote {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
             $this->id = $row['id'];
-            $this->quotes = $row['quotes'];
+            $this->quote = $row['quote'];
             $this->category_id = $row['category_id'];
             $this->author_id = $row['author_id'];
             $this->author = $row['author'];
@@ -73,7 +73,7 @@ class Quote {
 
     $this->quotes = htmlspecialchars(strip_tags($this->quote));
 
-    $stmt->bindParam(':quote', $this->quotes);
+    $stmt->bindParam(':quote', $this->quote);
     $stmt->bindParam(':author_id', $this->author_id);
     $stmt->bindParam(':category_id', $this->category_id);
 
@@ -87,18 +87,18 @@ class Quote {
     
 
     public function update() {
-        $this->quotes = htmlspecialchars(strip_tags($this->quotes));
+        $this->quote = htmlspecialchars(strip_tags($this->quote));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         $query = 'UPDATE '
         . $this->table . 
         ' SET 
-         quotes = :quotes, author_id = :author_id, category_id = :category_id 
+         quote = :quote, author_id = :author_id, category_id = :category_id 
          WHERE
          id = :id';
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':quotes', $this->quotes);
+        $stmt->bindParam(':quote', $this->quote);
         $stmt->bindParam(':author_id', $this->author_id);
         $stmt->bindParam(':category_id', $this->category_id);
         $stmt->bindParam(':id', $this->id);

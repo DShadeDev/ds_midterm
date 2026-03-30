@@ -26,14 +26,14 @@ if ($method === 'OPTIONS') {
 
   $result = $quote->read($author_id, $category_id);
 
-  $quotes = $result->fetchAll(PDO::FETCH_ASSOC);
+  $quote = $result->fetchAll(PDO::FETCH_ASSOC);
 
     $data = [];
 
-    foreach ($quotes as $row) {
+    foreach ($quote as $row) {
         $data[] = [
             'id' => $row['id'],
-            'quote' => $row['quotes'],
+            'quote' => $row['quote'],
             'author' => $row['author'],
             'category' => $row['category']
         ];

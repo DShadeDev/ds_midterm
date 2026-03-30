@@ -33,7 +33,7 @@ if ($method === 'OPTIONS') {
   }
   $quote_arr = [
     'id' => $quote->id,
-    'quote' => $quote->quotes,
+    'quote' => $quote->quote,
     'author' =>$quote-> author,
     'category' => $quote->category
   ];

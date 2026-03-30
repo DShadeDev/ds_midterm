@@ -57,7 +57,7 @@ if ($method === 'OPTIONS') {
     exit();
   }
 
-  $quote->quotes = $data['quote'];
+  $quote->quote = $data['quote'];
   $quote->author_id = $data['author_id'];
   $quote->category_id = $data['category_id'];
 
@@ -65,7 +65,7 @@ if ($method === 'OPTIONS') {
     http_response_code(200);
     echo json_encode([
         'id' => $quote->id,
-        'quote' => $quote->quotes,
+        'quote' => $quote->quote,
         'author_id' => $quote->author_id,
         'category_id' => $quote->category_id
     ]);
