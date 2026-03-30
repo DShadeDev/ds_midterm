@@ -25,16 +25,10 @@ if ($method === 'OPTIONS') {
   $author = new Author($db);
   $category = new Category($db);
 
-  $data = json_decode(file_get_contents("php://input"), true);
-  if (!$data) {
-    echo json_encode(['message' => 'Invalid JSON']);
-    exit();
-  }
+  $data = json_decode(file_get_contents("php://input"));
 
-  
-
-  $author->id = $data['author_id'];
-  $category->id = $data['category_id'];
+  $author->id = $data->author_id;
+  $category->id = $data->category_id;
   if(!$author->read_single()) {
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
@@ -43,16 +37,16 @@ if ($method === 'OPTIONS') {
       exit();
   } else {
     if(
-      !isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id'])
+      !isset($data->quotes) || !isset($data->author_id) || !isset($data->category_id)
       ) 
       echo json_encode(['message' => 'Missing Required Parameters']);
       exit();
   }
   
-  $quote->id = $data['id'];
-  $quote->quotes = $data['quote'];
-  $quote->author_id = $data['author_id'];
-  $quote->category_id = $data['category_id'];
+  $quote->id = $data->id;
+  $quote->quotes = $data->quote;
+  $quote->author_id = $data->author_id;
+  $quote->category_id = $data->category_id;
 
   if($quote->create()) {
     http_response_code(200);
