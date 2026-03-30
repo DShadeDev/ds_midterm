@@ -28,7 +28,7 @@ if ($method === 'OPTIONS') {
     exit();
   }
 
-  $category->id = $data->id;
+  #$category->id = $data->id;
   $category->category = $data->category;
   if($category->create()) {
     http_response_code(200);
