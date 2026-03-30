@@ -21,22 +21,22 @@ if ($method === 'OPTIONS') {
 
   $category = new Category($db);
 
-  $data = json_decode(file_get_contents("php://input"), true);
+  $data = json_decode(file_get_contents("php://input"));
 
-  if(!isset($data->category)) {
+  if(!isset($data->id) || !isset($data->category)) {
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
   }
 
+  $category->id = $data->id;
   $category->category = $data->category;
-  $result = $category->create();
-  
-  if ($result) {
+  if($category->create()) {
+    http_response_code(200);
     echo json_encode([
-        'id' => $result,   
-        'category' => $category->category
+      'id' => $category->id,
+      'category' => $category->category
     ]);
   } else {
     http_response_code(500);
-    echo json_encode(['message' => 'Category Not Created']);
+    echo json_encode(['message' => 'Category Not Updated']);
   }
