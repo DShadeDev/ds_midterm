@@ -45,6 +45,7 @@
         }
 
         public function create() {
+<<<<<<< HEAD
                $query = 'SELECT id FROM ' . $this->table . ' WHERE author = :author LIMIT 1';
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(':author', $this->author);
