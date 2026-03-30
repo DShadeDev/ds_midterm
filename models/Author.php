@@ -66,7 +66,7 @@
             $this->author = htmlspecialchars(strip_tags($this->author));
             $stmt->bindParam(':author', $this->author);
             if($stmt->execute()) {
-                return $stmt->fetchColumn;
+                return $stmt->fetchColumn();
             }
             return false;
         }
