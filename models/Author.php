@@ -45,21 +45,10 @@
         }
 
         public function create() {
-            $query = 'SELECT id FROM ' . $this->table . ' WHERE author = :author LIMIT 1';
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':author', $this->author);
-            $stmt->execute();
-
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($row) {
-                return $row['id'];
-            }
-
-            $query = 'INSERT INTO '
-                    . $this->table . 
-                    ' (author) 
-                    VALUES (:author) 
+            $query = 'INSERT INTO authors (author)
+                    VALUES (:author)
+                    ON CONFLICT (author) DO UPDATE
+                    SET author = EXCLUDED.author
                     RETURNING id';
 
             $stmt = $this->conn->prepare($query);
