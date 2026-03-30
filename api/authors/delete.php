@@ -30,11 +30,6 @@ if ($method === 'OPTIONS') {
   }
 
   $author->id = $data->id;
-  if(!$author->read_single()) {
-    http_response_code(404);
-    echo json_encode(['message' => 'author_id not Found']);
-    exit();
-  }
   if($author->delete()) {
     http_response_code(200);
     echo json_encode([

@@ -23,18 +23,18 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"));
 
-  if(!isset($data->id)) {
-    http_response_code(400);
-    echo json_encode(['message'=> 'Missing Required Parameters']);
-    exit();
-  }
+  #if(!isset($data->id)) {
+  #  http_response_code(400);
+  #  echo json_encode(['message'=> 'Missing Required Parameters']);
+  #  exit();
+  #}
 
   $category->id = $data->id;
-  if(!$category->read_single()) {
-    http_response_code(404);
-    echo json_encode(['message' => 'category_id not Found']);
-    exit();
-  }
+  #if(!$category->read_single()) {
+  #  http_response_code(404);
+  #  echo json_encode(['message' => 'category_id not Found']);
+  #  exit();
+  #}
   if($category->delete()) {
     http_response_code(200);
     echo json_encode([
