@@ -102,7 +102,7 @@
                 return $stmt->rowCount() > 0;
             } catch (PDOException $e) {
                 if ($e->getCode() == 23000) {
-                    return 'constraint':
+                    return 'constraint';
                 }
             
             return false;
