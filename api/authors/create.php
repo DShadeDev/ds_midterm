@@ -23,20 +23,26 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"));
 
-  if (!isset($data->author)) {
-    echo json_encode(['message' => 'Missing Required Parameters']);
-    exit();
-  }
+  if (!$data) {
+  echo json_encode(['message' => 'Invalid JSON']);
+  exit();
+}
 
-  $author->author = $data->author;
-  $result = $author->create();
-  
-  if ($result) {
-    echo json_encode([
-        'id' => $result,   
-        'author' => $author->author
-    ]);
-  } else {
-    http_response_code(500);
-    echo json_encode(['message' => 'Author Not Created']);
-  }
+if (!isset($data->author) || empty($data->author)) {
+  echo json_encode(['message' => 'Missing Required Parameters']);
+  exit();
+}
+
+$author->author = $data->author;
+$result = $author->create();
+
+if ($result) {
+  http_response_code(201);
+  echo json_encode([
+    'id' => $result,
+    'author' => $author->author
+  ]);
+} else {
+  http_response_code(500);
+  echo json_encode(['message' => 'Author Not Created']);
+}
