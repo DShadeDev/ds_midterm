@@ -34,7 +34,6 @@ if ($method === 'OPTIONS') {
   if(
     !isset($data['id']) || !isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id'])
   ) {
-  
     echo json_encode(['message' => 'Missing Required Parameters']);
     exit();
   }
@@ -42,21 +41,18 @@ if ($method === 'OPTIONS') {
   $quote->id = $data['id'];
 
   if(!$quote->read_single()) {
-    http_response_code(404);
     echo json_encode(['message' => 'No Quotes Found']);
     exit();
   }
 
   $author->id = $data['author_id'];
   if(!$author->read_single()) {
-    http_response_code(404);
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
   }
 
   $category->id = $data['category_id'];
   if(!$category->read_single()) {
-    http_response_code(404);
     echo json_encode(['message' => 'category_id Not Found']);
     exit();
   }
