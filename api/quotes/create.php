@@ -43,8 +43,8 @@ if ($method === 'OPTIONS') {
       exit();
   } else {
     if(
-      !isset($data['id']) || !isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id'])
-   ) 
+      !isset($data['quote']) || !isset($data['author_id']) || !isset($data['category_id'])
+      ) 
       echo json_encode(['message' => 'Missing Required Parameters']);
       exit();
   }
