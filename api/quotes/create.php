@@ -27,24 +27,25 @@ if ($method === 'OPTIONS') {
 
   $data = json_decode(file_get_contents("php://input"));
 
+  if(
+      !$data || !isset($data->quote) || !isset($data->author_id) || !isset($data->category_id)
+      ) {
+      echo json_encode(['message' => 'Missing Required Parameters']);
+      exit();
+      }
+
   $author->id = $data->author_id;
   $category->id = $data->category_id;
   if(!$author->read_single()) {
     echo json_encode(['message' => 'author_id Not Found']);
     exit();
-  } elseif(!$category->read_single()) {
+  }
+  if(!$category->read_single()) {
       echo json_encode(['message' => 'category_id Not Found']);
       exit();
-  } else {
-    if(
-      !isset($data->quote) || !isset($data->author_id) || !isset($data->category_id)
-      ) {
-      echo json_encode(['message' => 'Missing Required Parameters']);
-      exit();
-      }
-  }
+  } 
   
-  $quote->id = $data->id;
+  
   $quote->quote = $data->quote;
   $quote->author_id = $data->author_id;
   $quote->category_id = $data->category_id;
