@@ -71,9 +71,9 @@ class Quote {
 
     $stmt = $this->conn->prepare($query);
 
-    $this->quotes = htmlspecialchars(strip_tags($this->quotes));
+    $this->quotes = htmlspecialchars(strip_tags($this->quote));
 
-    $stmt->bindParam(':quote', $this->quote);
+    $stmt->bindParam(':quote', $this->quotes);
     $stmt->bindParam(':author_id', $this->author_id);
     $stmt->bindParam(':category_id', $this->category_id);
 
