@@ -29,13 +29,6 @@ if ($method === 'OPTIONS') {
   }
 
   $author->id = $data->id;
-
-  #if (!$author->read_single()) {
-  #  http_response_code(404);
-  #  echo json_encode(['message' => 'author_id Not Found']);
-  #  exit();
-  #}
-
   $author->author = $data->author;
   if($author->update()) {
     http_response_code(200);

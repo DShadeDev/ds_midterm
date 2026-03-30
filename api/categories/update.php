@@ -29,13 +29,6 @@ if ($method === 'OPTIONS') {
   }
 
   $category->id = $data->id;
-
-  #if (!$category->read_single()) {
-  #  http_response_code(404);
-  #  echo json_encode(['message' => 'category_id Not Found']);
-  #  exit();
-  #}
-
   $category->category = $data->category;
   if($category->update()) {
     http_response_code(200);
