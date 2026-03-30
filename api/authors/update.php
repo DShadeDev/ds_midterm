@@ -21,7 +21,7 @@ if ($method === 'OPTIONS') {
 
   $author = new Author($db);
 
-  $data = json_decode(file_get_contents("php://input"), true);
+  $data = json_decode(file_get_contents("php://input"));
 
   if(!isset($data->id) || !isset($data->author)) {
     echo json_encode(['message' => 'Missing Required Parameters']);
@@ -30,11 +30,11 @@ if ($method === 'OPTIONS') {
 
   $author->id = $data->id;
 
-  if (!$author->read_single()) {
-    http_response_code(404);
-    echo json_encode(['message' => 'author_id Not Found']);
-    exit();
-  }
+  #if (!$author->read_single()) {
+  #  http_response_code(404);
+  #  echo json_encode(['message' => 'author_id Not Found']);
+  #  exit();
+  #}
 
   $author->author = $data->author;
   if($author->update()) {
